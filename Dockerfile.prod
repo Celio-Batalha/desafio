@@ -1,0 +1,10 @@
+FROM golang:latest AS builder
+
+WORKDIR /go/fullcycle
+RUN go mod init desafio
+COPY desafio.go .
+RUN go build -o /fullcycle desafio.go
+
+FROM scratch
+COPY --from=builder /fullcycle /fullcycle
+CMD ["/fullcycle"]
